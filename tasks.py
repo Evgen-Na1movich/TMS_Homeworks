@@ -102,18 +102,37 @@ def task11(string: str) -> bool:
     Напишите функцию которая проверяет является ли строка палиндромом.
     Палиндром — это слово или фраза, которые одинаково читаются слева направо и справа налево.
     """
+    string_obr = string[::-1]
+    if string_obr == string:
+        return True
+    else:
+        return False
 
 
 def task12(string: str, symbol: str) -> int:
     """
     Напишите функцию которая возвращает сколько раз символ встречается в строке
     """
+    string_length = len(string)
+    string = string.lower()
+    index = 0
+    letter = 0
+    while index != string_length:
+        if string[index] == symbol:
+            letter += 1
+        index +=1
+    return letter
+
 
 
 def task13(number: int) -> bool:
     """
     Дано число. Если это число делится на 1000 без остатка, то верните True иначе False
     """
+    if number % 1000 == 0:
+        return True
+    else:
+        return False
 
 
 def task14(guests_count: int) -> str:
@@ -123,11 +142,29 @@ def task14(guests_count: int) -> str:
     Вернуть "ресторан", "кафе", "дом" в зависимости от количества гостей.
     """
 
+    if guests_count <= 0:
+        raise TaskException
+    elif guests_count < 20:
+        return "дом"
+    elif 20 <= guests_count <= 50:
+        return "кафе"
+    else:
+        return "ресторан"
+
+
 
 def task15(number: int) -> tuple[int, int]:
     """
     Дано число. Найти сумму и произведение его цифр.
     """
+    list_number = list(str(number))
+    new_list = list()
+
+    for i in list_number:
+        new_list.append(int(i))
+
+    from functools import reduce
+    return sum(new_list), reduce((lambda x, y: x * y), new_list, 1)
 
 
 def task16(start: int, end: int) -> list[int]:
@@ -135,6 +172,21 @@ def task16(start: int, end: int) -> list[int]:
     Два натуральных числа называют дружественными, если каждое из них равно сумме всех делителей другого,
     кроме самого этого числа. Реализовать функцию для поиска всех пар дружественных чисел в заданном диапазоне
     """
+    def sum_divisors(number: int) -> int:  # находит сумму делителей числа
+        sum_divisors_number = 0
+        for i in range(1, number):
+            if number % i == 0:
+                sum_divisors_number += i
+        return sum_divisors_number
+
+    list_friends_numbers = []
+    for j in range(start, end+1):
+        a = sum_divisors
+        # if sum_divisors(sum_divisors(j)) == j and sum_divisors(j) != j and start <= sum_divisors(j) <= end:
+        if a(a(j)) == j and a(j) != j and start <= a(j) <= end:
+            list_friends_numbers.append(j)
+
+    return list_friends_numbers
 
 
 def task17(n: int) -> float:
@@ -142,6 +194,12 @@ def task17(n: int) -> float:
     Для заданного числа N составьте программу вычисления суммы
     S=1+1/2+1/3+1/4+...+1/N, где N – натуральное число
     """
+
+    summa = 0
+    for i in range(1, n+1):
+        summa += 1 / i
+    return summa
+
 
 
 def task18(number: [int, float], func_number: int) -> float:
@@ -163,6 +221,15 @@ def task18(number: [int, float], func_number: int) -> float:
     12. Литры в пинты
     """
 
+    import func
+    if func_number == 1:
+        return func.func_1(number)
+
+    elif func_number == 2:
+        return func.func_2(number)
+
+
+
 
 def micro_calc(a: [float, int], b: [float, int], sign: str) -> [float, int, str]:
     """
@@ -170,6 +237,30 @@ def micro_calc(a: [float, int], b: [float, int], sign: str) -> [float, int, str]
     Необходимо вернуть результат арифметической операции
     В случае ошибки вычислений или неизвестного знака вернуть строку "error"
     """
+
+    if sign == "+":
+        return a + b
+
+    elif sign == "-":
+        return a - b
+
+    elif sign == ":":
+        if b == 0:
+            raise TaskException
+            return "error"
+        else:
+            return a / b
+
+    elif sign == "*":
+        return a * b
+
+    elif sign == "^":
+        return a ** b
+
+    else:
+        raise TaskException
+        return "error"
+
 
 
 def big_letters(phrase: str) -> str:
