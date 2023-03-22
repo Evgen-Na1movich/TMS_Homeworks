@@ -74,13 +74,13 @@ def task9(string: str) -> str:
     с 3 восклицательными знаками в конце ('!!!') и вывести на экран.
     Если меньше 10, то вывести на экран второй символ строки
     """
-    if len(string) > 10:
-        string += ("!!!")
-    else:
-        string = string[1]
-    return string
+    return string + '!!!' if len(string) > 10 else string[1]
 
-
+    # if len(string) > 10:
+    #     string += ("!!!")
+    # else:
+    #     string = string[1]
+    # return string
 
 
 def task10(string: str) -> tuple[str, [None, str]]:
@@ -228,6 +228,36 @@ def task18(number: [int, float], func_number: int) -> float:
     elif func_number == 2:
         return func.func_2(number)
 
+    elif func_number == 3:
+        return func.func_3(number)
+
+    elif func_number == 4:
+        return func.func_4(number)
+
+    elif func_number == 5:
+        return func.func_5(number)
+
+    elif func_number == 6:
+        return func.func_6(number)
+
+    elif func_number == 7:
+        return func.func_7(number)
+
+    elif func_number == 8:
+        return func.func_9(number)
+
+    elif func_number == 9:
+        return func.func_9(number)
+
+    elif func_number == 10:
+        return func.func_10(number)
+
+    elif func_number == 11:
+        return func.func_11(number)
+
+    elif func_number == 12:
+        return func.func_12(number)
+
 
 
 
@@ -237,29 +267,47 @@ def micro_calc(a: [float, int], b: [float, int], sign: str) -> [float, int, str]
     Необходимо вернуть результат арифметической операции
     В случае ошибки вычислений или неизвестного знака вернуть строку "error"
     """
-
-    if sign == "+":
-        return a + b
-
-    elif sign == "-":
-        return a - b
-
-    elif sign == ":":
-        if b == 0:
+    # return eval(str(a) + sign + str(b)) #не проходит, т.к. деление обозначено : , sqrt - ^
+    match sign:
+        case '+':
+            return a + b
+        case '-':
+            return a - b
+        case ':':
+            if b == 0:
+                raise TaskException
+            else:
+                return a / b
+        case '*':
+            return a * b
+        case '^':
+            return a ** b
+        case _:
             raise TaskException
-            return "error"
-        else:
-            return a / b
 
-    elif sign == "*":
-        return a * b
+    #
+    #   if sign == "+":
+    #     return a + b
+    #
+    # elif sign == "-":
+    #     return a - b
+    #
+    # elif sign == ":":
+    #     if b == 0:
+    #         raise TaskException
+    #
+    #     else:
+    #         return a / b
+    #
+    # elif sign == "*":
+    #     return a * b
+    #
+    # elif sign == "^":
+    #     return a ** b
+    #
+    # else:
+    #     raise TaskException
 
-    elif sign == "^":
-        return a ** b
-
-    else:
-        raise TaskException
-        return "error"
 
 
 
@@ -316,3 +364,15 @@ def task_with_square_brackets(string_input: str) -> str:
      - вложенность может быть любая
      - строка на входе в функцию всегда валидна
     """
+    k = 0
+    string_input = input()
+    a = string_input
+    for i in a:
+        if i == ']':
+            k += 1
+    a = a[:len(a) - k]
+
+    for i in range(len(a) - 1, -1, -1):
+        if a[i] == '[':
+            a = a[0:i - 1] + int(a[i - 1]) * a[i + 1:len(a)]
+    return a

@@ -22,12 +22,12 @@ def func_6(x):
     return x * 2.205
 
 
-def func7(x):
+def func_7(x):
     return x * 28.35
 
 
 def func_8(x):
-    return x /28.35
+    return x / 28.35
 
 
 def func_9(x):
